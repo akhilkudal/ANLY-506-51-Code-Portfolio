@@ -1,0 +1,114 @@
+# Print my current working directory
+getwd()
+## [1] "[1] "C:/Users/zk2r47z/Documents"
+
+# Change my working directory to the following path
+setwd(dir = "C:/Akhil-docs/HU-CPT/ANLY 506 code portfolio")
+
+# Print all the objects in my workspace
+ls()
+# character(0)
+
+# Try to print matrix3.df
+matrix3.df
+# Error: object 'matrix3.df' not found
+
+# Create some objects that we'll save later
+study1.df <- data.frame(id = 1:5, 
+                        sex = c("m", "m", "f", "f", "m"), 
+                        score = c(51, 20, 67, 52, 42))
+
+score.by.sex <- aggregate(score ~ sex, 
+                          FUN = mean, 
+                          data = study1.df)
+
+study1.htest <- t.test(score ~ sex, 
+                       data = study1.df)
+
+# Save two objects as a new .RData file
+# in the week2_data folder of my current working directory
+save(study1.df, score.by.sex, study1.htest,
+     file = "week2_data/study1.RData")
+
+# Save my workspace to complete_image.RData in the week2_data folder of my working directory
+save.image(file = "week2_data/projectimage.RData")
+
+# Load objects in study1.RData into my workspace
+load(file = "week2_data/study1.RData")
+
+# Load objects in projectimage.RData into my workspace
+load(file = "week2_data/projectimage.RData")
+
+# Remove huge.df from workspace
+rm(huge.df)
+# In rm(huge.df) : object 'huge.df' not found
+
+# Remove ALL objects from workspace
+rm(list = ls())
+
+# Write the pirates dataframe object to a tab-delimited text file called pirates.txt in my working directory
+write.table(x = pirates,
+            file = "pirates.txt",  # Save the file as pirates.txt
+            sep = "\t")            # Make the columns tab-delimited
+#Error in is.data.frame(x) : object 'pirates' not found
+
+# Write the pirates dataframe object to a tab-delimited text file called pirates.txt to a different folder outside my working directory
+write.table(x = pirates,
+            file = "C:/Akhil-docs/HU-CPT/ANLY 506 test/pirates.txt",  # Save the file as pirates.txt to a different folder outside my working directory
+            sep = "\t")                                               # Make the columns tab-delimited
+#Error in is.data.frame(x) : object 'pirates' not found
+
+# Read a tab-delimited text file called mydata.txt from the data folder in my working directory into R and store as a new object called mydata
+mydata <- read.table(file = 'week2_data/mydata.txt',    # file is in a data folder in my working directory
+                     sep = '\t',                        # file is tab--delimited
+                     header = TRUE,                     # the first row of the data is a header row
+                     stringsAsFactors = FALSE)          # do NOT convert strings to factors
+
+# Read a text file from the web
+fromweb <- read.table(file = 'https://secops-eplanhelp-prod0-westeurope-wa.azurewebsites.net/help/platform/2.5/en-US/help/Content/htm/messages_p_022027.htm',
+                      sep = '\t',
+                      header = TRUE)
+
+# Print the result
+fromweb
+1  <html xmlns:MadCap=http://www.madcapsoftware.com/Schemas/MadCap.xsd lang=en-us xml:lang=en-us data-mc-search-type=Stem data-mc-help-system-file-name=EPLAN_Help.xml data-mc-path-to-help-system=../../ data-mc-target-type=WebHelp2 data-mc-runtime-file-type=Topic data-mc-preload-images=false data-mc-in-preview-mode=false data-mc-toc-path=EPLAN Help|Understanding and Handling Messages|Check Run Messages|Check Run Messages: Message Class &quot;Other&quot; data-mc-conditions=Primary.concept>
+  2                                                                                                                                                                                                                                                                                                                                                                                                                                                             <!-- saved from url=(0016)http://localhost -->
+  3                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     <head>
+  4                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     <meta charset=utf-8 />
+  5                                                                                                                                                                                                                                                                                                                                                                                                                                          <meta http-equiv=Content-Type content=text/html; charset=utf-8 />
+  6                                                                                                                                                                                                                                                                                                                                                                                                                 <link href=../../Skins/Default/Stylesheets/TextEffects.css rel=stylesheet type=text/css />
+  7                                                                                                                                                                                                                                                                                                                                                                                <link href=../../Skins/Default/Stylesheets/Topic.css rel=stylesheet type=text/css /><title>P022027: Text too small.</title>
+  8                                                                                                                                                                                                                                                                                                                                       <meta name=description content=A text was found on a project page whose font size is smaller than the minimum font size defined in the project-specific settings. />
+  9                                                                                                                                                                                                                                                                                                                                                                                                                                            <link href=../CSS/epltecdoc.css rel=stylesheet type=text/css />
+  10                                                                                                                                                                                                                                                                                                                                                                                                                                   <script src=../../Resources/Scripts/jquery.min.js type=text/javascript>
+  11                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 </script>
+  12                                                                                                                                                                                                                                                                                                                                                                                                                                  <script src=../../Resources/Scripts/plugins.min.js type=text/javascript>
+  13                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 </script>
+  14                                                                                                                                                                                                                                                                                                                                                                                                                                  <script src=../../Resources/Scripts/require.min.js type=text/javascript>
+  15                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 </script>
+  16                                                                                                                                                                                                                                                                                                                                                                                                                               <script src=../../Resources/Scripts/require.config.js type=text/javascript>
+  17                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 </script>
+  18                                                                                                                                                                                                                                                                                                                                                                                                                                    <script src=../../Resources/Scripts/MadCapAll.js type=text/javascript>
+  19                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 </script>
+  20                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   </head>
+  21                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <body>
+  22                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  <div class=nscr id=nscr>
+  23                                                                                                                                                                                                                                                                                                            <p class=Small>This functionality is only available for certain module packages. <a href=license_k_start.htm>About</a></p><a name=kanchor3003></a><a name=kanchor3004></a><a name=P022027></a>
+  24                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      <h2>
+  25                                                                                                                                                                                                                                                                                                                                                                                                                                                          <notrans>P022027: </notrans>Text too small.</h2>
+  26                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div>
+  27                                                                                                                                                                                                                                                                                                                                                                                                                                                                          <div class=mainbody id=mainbody>
+  28                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <h3>Cause</h3>
+  29                                                                                                                                                                                                                                                                                                                                                                 <p>A text was found on a project page whose font size is smaller than the minimum font size defined in the project-specific settings.</p>
+  30                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         <h3>Solution</h3>
+  31                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      <ol>
+  32                                                                                                                                                                                                                                                                                        <li class=Listitem_Step_By_Step value=1>Locate the text in the project using the <span class=gui>Go to (graphic)</span> function from the popup menu in the <span class=gui>Message management</span> dialog.</li>
+  33                                                                                                                                                                                                                                               <li class=Listitem_Step_By_Step value=2>Open the <span class=gui>Properties &lt;...&gt;</span> dialog of the text, and bring to front the <span class=gui>Format</span> tab and determine the value set in the <span class=gui>Font size</span> field.</li>
+  34                                                                                                                                                                                                              <li class=Listitem_Step_By_Step value=3>Select the menu items <span class=gui>Settings &gt; Options &gt; Project name &gt; Graphical editing &gt; General</span> and determine the value set in the <span class=gui>Minimum font size (check for excessively small texts)</span> field.</li>
+  35                                                                                                     <li class=Listitem_Step_By_Step value=4>Either increase the value of the font size of the text so that the set minimum font size is exceeded. Or reduce the value for the project-specific setting in the field <span class=gui>Minimum font size (check for excessively small texts)</span> so that the font size currently used for the text becomes valid and an error is no longer reported.</li>
+  36                                                                                                                                                                                                                                                                                                                                                                                                                                  <li class=Listitem_Step_By_Step value=5>Then start a new check run.</li>
+  37                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     </ol>
+  38                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </div>
+  39                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   </body>
+  40                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   </html>
+  

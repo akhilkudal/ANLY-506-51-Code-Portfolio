@@ -1,0 +1,118 @@
+---
+title: "week9"
+author: "Akhil Kudal"
+date: "July 03, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+#The Base Plotting System - simple scatterplot
+ data(airquality)
+ with(airquality, {
+           plot(Temp, Ozone)
+           lines(loess.smooth(Temp, Ozone))
+   })
+```
+
+```{r}
+ #typical base plot is constructed with the following code
+data(cars)
+```
+
+```{r}
+## Create the plot / draw canvas
+with(cars, plot(speed, dist))
+```
+
+```{r}
+## Add annotation
+title("Speed vs. Stopping distance")
+```
+
+```{r}
+#The Lattice System
+library(lattice)
+```
+
+```{r}
+#an example of a lattice plot that looks at the relationship between life expectancy and income and how that relationship varies by region in the United States
+state <- data.frame(state.x77, region = state.region)
+xyplot(Life.Exp ~ Income | region, data = state, layout = c(4, 1))
+```
+
+```{r}
+#The ggplot2 System
+install.packages("ggplot2")
+```
+
+```{r}
+library(ggplot2)
+```
+
+```{r}
+#A typical plot with the ggplot package looks as follows
+data(mpg)
+qplot(displ, hwy, data = mpg)
+```
+
+```{r}
+#an example of this process in making a plot with the plot() function
+## Make plot appear on screen device
+with(faithful, plot(eruptions, waiting)) 
+## Annotate with a title
+title(main = "Old Faithful Geyser data") 
+```
+
+```{r}
+#an example of how to make a plot using this second approach. In this case we make a plot that gets saved in a PDF file
+## Open PDF device; create 'myplot.pdf' in my working directory
+pdf(file = "myplot.pdf") 
+```
+
+```{r}
+## Create plot and send to a file (no plot appears on screen)
+with(faithful, plot(eruptions, waiting))
+```
+
+```{r}
+## Annotate plot; still nothing on screen
+title(main = "Old Faithful Geyser data")
+```
+
+```{r}
+## Close the PDF file device
+dev.off()
+#RStudioGD 
+#2
+```
+
+```{r}
+#copying a plot
+library(datasets)
+```
+
+```{r}
+## Create plot on screen device
+with(faithful, plot(eruptions, waiting))  
+```
+
+```{r}
+## Add a main title
+title(main = "Old Faithful Geyser data")  
+```
+
+```{r}
+## Copy my plot to a PNG file
+dev.copy(png, file = "geyserplot.png")  
+```
+
+```{r}
+## Don't forget to close the PNG device!
+dev.off()
+#RStudioGD 
+#2
+```

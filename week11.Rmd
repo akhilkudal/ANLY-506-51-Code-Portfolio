@@ -1,0 +1,106 @@
+---
+title: "week11"
+author: "Akhil Kudal"
+date: "July 17, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+#Compute the Principal Components
+mtcars.pca <- prcomp(mtcars[,c(1:7,10,11)], center = TRUE,scale. = TRUE)
+summary(mtcars.pca)
+```
+
+```{r}
+#calling str() to have a look at your PCA object
+str(mtcars.pca)
+```
+
+```{r}
+#loading devtools and ggbiplot from github
+library(devtools)
+install_github("vqv/ggbiplot")
+library(ggbiplot)
+```
+```{r}
+#loading mtcars dataset
+ggbiplot(mtcars.pca)
+```
+
+```{r}
+#providing an argument to ggbiplot
+ggbiplot(mtcars.pca, labels=rownames(mtcars))
+```
+
+```{r}
+#Interpreting the results
+mtcars.country <- c(rep("Japan", 3), rep("US",4), rep("Europe", 7),rep("US",3), "Europe", rep("Japan", 3), rep("US",4), rep("Europe", 3), "US", rep("Europe", 3))
+ggbiplot(mtcars.pca,ellipse=TRUE,  labels=rownames(mtcars), groups=mtcars.country)
+```
+
+```{r}
+#Comparing PC3 and PC4
+ggbiplot(mtcars.pca,ellipse=TRUE,choices=c(3,4),   labels=rownames(mtcars), groups=mtcars.country)
+```
+
+```{r}
+#Graphical parameters with ggbiplot
+ggbiplot(mtcars.pca,ellipse=TRUE,circle=TRUE, labels=rownames(mtcars), groups=mtcars.country)
+```
+
+```{r}
+#Scaling the samples and variables
+ggbiplot(mtcars.pca,ellipse=TRUE,obs.scale = 1, var.scale = 1,  labels=rownames(mtcars), groups=mtcars.country)
+```
+
+```{r}
+#removing the arrows altogether, using var.axes
+ggbiplot(mtcars.pca,ellipse=TRUE,obs.scale = 1, var.scale = 1,var.axes=FALSE,   labels=rownames(mtcars), groups=mtcars.country)
+```
+
+```{r}
+#using the same set of graphical parameters to alter the biplots
+ggbiplot(mtcars.pca,ellipse=TRUE,obs.scale = 1, var.scale = 1,  labels=rownames(mtcars), groups=mtcars.country) +
+  scale_colour_manual(name="Origin", values= c("forest green", "red3", "dark blue"))+
+  ggtitle("PCA of mtcars dataset")+
+  theme_minimal()+
+  theme(legend.position = "bottom")
+```
+
+```{r}
+#Adding a new sample
+spacecar <- c(1000,60,50,500,0,0.5,2.5,0,1,0,0)
+
+mtcarsplus <- rbind(mtcars, spacecar)
+mtcars.countryplus <- c(mtcars.country, "Jupiter")
+
+mtcarsplus.pca <- prcomp(mtcarsplus[,c(1:7,10,11)], center = TRUE,scale. = TRUE)
+
+ggbiplot(mtcarsplus.pca, obs.scale = 1, var.scale = 1, ellipse = TRUE, circle = FALSE, var.axes=TRUE, labels=c(rownames(mtcars), "spacecar"), groups=mtcars.countryplus)+
+  scale_colour_manual(name="Origin", values= c("forest green", "red3", "violet", "dark blue"))+
+  ggtitle("PCA of mtcars dataset, with extra sample added")+
+  theme_minimal()+
+  theme(legend.position = "bottom")
+```
+
+```{r}
+#Projecting a new sample onto the original PCA
+s.sc <- scale(t(spacecar[c(1:7,10,11)]), center= mtcars.pca$center)
+s.pred <- s.sc %*% mtcars.pca$rotation
+
+mtcars.plusproj.pca <- mtcars.pca
+mtcars.plusproj.pca$x <- rbind(mtcars.plusproj.pca$x, s.pred)
+```
+
+```{r}
+#plotting mtcars dataset
+ggbiplot(mtcars.plusproj.pca, obs.scale = 1, var.scale = 1, ellipse = TRUE, circle = FALSE, var.axes=TRUE, labels=c(rownames(mtcars), "spacecar"), groups=mtcars.countryplus)+
+  scale_colour_manual(name="Origin", values= c("forest green", "red3", "violet", "dark blue"))+
+  ggtitle("PCA of mtcars dataset, with extra sample projected")+
+  theme_minimal()+
+  theme(legend.position = "bottom")
+```
